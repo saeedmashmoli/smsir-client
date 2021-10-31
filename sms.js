@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios');
 require('dotenv').config();
 const { SMS_USER_API_KEY , SMS_ENDPOINT , SMS_SECRET_KEY } = process.env
 
@@ -127,4 +127,4 @@ class SMS {
         }
     }
 }
-export default new SMS()
+module.exports = new SMS();
