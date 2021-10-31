@@ -1,0 +1,27 @@
+{
+  "name": "smsir-api-library",
+  "version": "1.0.0",
+  "description": "this library created for sms.ir requests",
+  "main": "sms.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saeedmashmoli/smsir-client.git"
+  },
+  "keywords": [
+    "sms.ir",
+    "sms.irclient"
+  ],
+  "author": "saeed mashmoli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saeedmashmoli/smsir-client/issues"
+  },
+  "homepage": "https://github.com/saeedmashmoli/smsir-client#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "dotenv": "^10.0.0"
+  }
+}
