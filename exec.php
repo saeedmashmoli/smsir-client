@@ -37,7 +37,7 @@ $filename = $string.".".$extFile;
 $file = file_put_contents($filename,file_get_contents($url));
 $path = "/var/www/html/api/fax-files/";
 $filepath = checkAndCreatedPath($path);
-$resultFileName = "$path/$string.tiff";
+$resultFileName = "$path.$string.tiff";
 $command = "gs -q -dNOPAUSE -dBATCH -sDEVICE=tiffg4 -sPAPERSIZE=letter -sOutputFile=$resultFileName $filename";
 exec($command, $output, $retval);
 unlink($filename);
