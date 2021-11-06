@@ -44,3 +44,20 @@ unlink($filename);
 http_response_code(201);
 echo json_encode(['status' => true ,'massage' => 'File Was Created' , 'data' => $resultFileName]);
 die;
+        
+        
+        
+        function sendFax($from, $to, $data)
+        {
+            $faxhost = escapeshellarg("$faxexten@127.0.0.1");
+            $destine = escapeshellarg($destine);
+            $data = escapeshellarg($data);
+            $output = $retval = NULL;
+            exec("sendfax -D -h $faxhost -n -d $destine $data 2>&1", $output, $retval);
+            $regs = NULL;
+            if ($retval != 0 || !preg_match('/request id is (\d+)/', implode('', $output), $regs)) {
+                $this->errMsg = implode('<br/>', $output);
+                return NULL;
+            }
+            return $regs[1];
+        }
