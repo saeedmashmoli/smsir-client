@@ -1,6 +1,39 @@
 $query = "gs -q -dNOPAUSE -dBATCH -sDEVICE=tiffg4 -sPAPERSIZE=letter -sOutputFile=fax-files/dest.tiff /var/www/html/test.pdf";
 $res = exec($query, $output, $retval);
 
+
+DELIMITER //
+
+CREATE OR REPLACE PROCEDURE `sp_test`(
+IN `marriageId` INT, 
+IN `roleId` INT, 
+IN `genderId` INT, 
+IN `cityId` INT, 
+IN `provinceId` INT, 
+IN `startDate` longtext, 
+IN `endDate` longtext) 
+BEGIN 
+DECLARE v longtext;
+DECLARE q longtext; 
+set v = "";
+set q = "";
+IF (marriageId IS NOT NULL) THEN SET v = CONCAT(v,',marriage');END IF;
+IF(roleId IS NOT NULL) THEN SET v = CONCAT(v,',role');END IF;
+IF(genderId IS NOT NULL) THEN SET v = CONCAT(v,',gender');END IF;
+IF(cityId IS NOT NULL) THEN SET v = CONCAT(v,',city');END IF;
+IF(provinceId IS NOT NULL) THEN SET v = CONCAT(v,',province');END IF;
+
+set q = CONCAT("select count(*) as `count`",v," from users where signupdate >= '",startDate,"' and signupdate <= '",endDate,"'");
+IF (v <> "") THEN SET q = CONCAT(q," group by ",SUBSTRING(v FROM 2));END IF;
+PREPARE stmt FROM q;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+END //
+
+DELIMITER ;
+
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET");
